@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Favorite Hobby</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="gaming-page">
+<nav class="main-nav">
+    <div class="logo">
+        <img src="https://files.catbox.moe/3bg70g.png" alt="Logo" />
+        <span>How's Hobby</span>
+    </div>
+    <ul>
+        <li><a href="Home.html">Home</a></li>
+        <li><a href="Gaming.html" class="active">Gaming</a></li>
+        <li><a href="Photography.html">Photography</a></li>
+        <li><a href="Cooking.html">Cooking</a></li>
+    </ul>
+</nav>
+<div class="main-banner" id="intro">
+    <div class="banner-content">
+        <h6>Welcome to The Gaming Section</h6>
+        <h1 id="cycling-text">
+            My <span class="highlight">Gaming</span> Hobby.
+        </h1>
+        <p>Strategize and conquer in the world of gaming.</p>
+        <a href="#Achievements" class="banner-btn">My Achievements</a>
+    </div>
+    <div class="banner-image">
+        <img src="https://files.catbox.moe/cjydbc.png" alt="Gaming Hobby">
+    </div>
+</div>
+<div class="container">
+<section class="card-section camera-section" id="tools">
+    <h2><span class="highlight-phone">About gaming as my hobby!</span></h2>
+    <div class="camera-flex">
+        <ul>
+            <li>I've been gaming for 7 years.</li>
+            <li>The game I play the most and enjoy is Genshin Impact, Wuthering Waves, Roblox and Identity V.</li>
+            <li>I play a variety of game genres such as RPG, Story telling, Competitive, Adventure and Strategizing.</li>
+            <li>Fun Fact! : I like taking shortcuts in game!</li>
+            
+        </ul>
+        <div class="phone-image-box">
+            <img src="https://files.catbox.moe/med8nc.png" alt="Games" />
+        </div>
+    </div>
+</section>
+        <section class="card-section" id="Achievements">
+    <div class="tutorial-flex">
+        <div>
+            <h2><span class="highlight-phone-small">My Achievements!</span></h2>
+            <ul>
+                <li>#577 Hutao Deathmatch build, Asia Server, Genshin Impact.</li>
+                <li>B tier Badge for Prospector, Asia Server, Identity V. </li>
+                <li>Won 2 Identity V tournaments.</li>
+                <li>Reached Titan (Highest Possible rank) tier for 4 seasons in Identity V.</li>
+                <li>One of first 250 players to get the Paradoxum Tophat, Tower Defense Simulator, Roblox.</li>
+            </ul>
+        </div>
+        <div class="tutorial-image-box">
+            <img src="https://files.catbox.moe/bbnnly.png" alt="Achievements" />
+        </div>
+    </div>
+    <div class="gallery-section">
+        <h3><span class="highlight-phone-small">Gameplay Videos</span></h3>
+        <div class="gallery-grid stacked-videos">
+            <div class="video-box">
+                <h2><span class="highlight-phone-small">Identity V Gameplay</span></h2>
+                <video src="https://files.catbox.moe/vycizd.mp4" controls poster="https://files.catbox.moe/nlg2rv.png"></video>
+            </div>
+            <div class="video-box">
+                <h2><span class="highlight-phone-small">Genshin Impact Cutscene</span></h2>
+                <video src="https://files.catbox.moe/3e0n0v.mp4" controls poster="https://files.catbox.moe/lgz641.png"></video>
+            </div>
+            <!-- Add more videos as needed -->
+        </div>
+    </div>
+</section>
+    </div>
+
+<script>
+const navLinks = document.querySelectorAll('.main-nav ul li a');
+const sections = Array.from(navLinks).map(link => document.querySelector(link.getAttribute('href')));
+
+function setActiveLink() {
+    let index = sections.length - 1;
+    for (let i = 0; i < sections.length; i++) {
+        const sectionTop = sections[i].getBoundingClientRect().top - document.querySelector('.main-nav').offsetHeight;
+        if (sectionTop > 0) {
+            index = i === 0 ? 0 : i - 1;
+            break;
+        }
+    }
+    navLinks.forEach(link => link.classList.remove('active'));
+    navLinks[index].classList.add('active');
+}
+
+// Smooth scroll and set active on click
+navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                const nav = document.querySelector('.main-nav');
+                const navHeight = nav ? nav.offsetHeight : 0;
+                const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                window.scrollTo({ top, behavior: 'smooth' });
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            }
+        }
+    });
+});
+
+// Update active link on scroll
+window.addEventListener('scroll', setActiveLink);
+window.addEventListener('resize', setActiveLink);
+document.addEventListener('DOMContentLoaded', setActiveLink); //
+</script>
+<script>
+document.querySelector('.banner-btn').addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+            const nav = document.querySelector('.main-nav');
+            const navHeight = nav ? nav.offsetHeight : 0;
+            const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
+    }
+});
+</script>
+<script>
+// Typewriter effect for cycling phrases and ending on the first phrase
+const phrases = [
+    { text: "My Gaming Hobby.", highlight: "Gaming" }
+];
+const cyclingTextElement = document.getElementById("cycling-text");
+let phraseIndex = 0;
+
+function typePhrase(phraseObj, callback) {
+    cyclingTextElement.innerHTML = "";
+    let i = 0;
+    let output = "";
+    let duration = 2000; // 2 seconds
+    let totalChars = phraseObj.text.length;
+    let interval = duration / totalChars;
+
+    function type() {
+        if (i > phraseObj.text.length) {
+            cyclingTextElement.innerHTML = output;
+            if (callback) callback();
+            return;
+        }
+        let nextChunk = phraseObj.text.slice(0, i);
+        // Replace the highlight word with the span only once
+        let highlighted = nextChunk.replace(
+            phraseObj.highlight,
+            `<span class='highlight'>${phraseObj.highlight}</span>`
+        );
+        output = highlighted;
+        cyclingTextElement.innerHTML = output;
+        i++;
+        setTimeout(type, interval);
+    }
+    type();
+}
+
+function cyclePhrases() {
+    typePhrase(phrases[phraseIndex], () => {
+        phraseIndex++;
+        if (phraseIndex < phrases.length) {
+            setTimeout(cyclePhrases, 500); // Short pause between phrases
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    cyclePhrases();
+});
+</script>
+</body>
+</html>
